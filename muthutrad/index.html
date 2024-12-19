@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traditional Day Registration - S.I.W.S College</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Traditional Day Registration</h1>
+        <p class="college-name">S.I.W.S COLLEGE</p>
+        <form id="traditionalDayForm">
+            <div class="form-group">
+                <label for="name">Full Name:</label>
+                <input type="text" id="name" name="name" required placeholder="Enter your full name">
+            </div>
+
+            <div class="form-group">
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age" required placeholder="Enter your age">
+            </div>
+
+            <div class="form-group">
+                <label for="outfit">Traditional Outfit:</label>
+                <select id="outfit" name="outfit" required>
+                    <option value="" disabled selected>Select your outfit</option>
+                    <option value="saree">Saree</option>
+                    <option value="kurta">Kurta</option>
+                    <option value="lehenga">Lehenga</option>
+                    <option value="sherwani">Sherwani</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+
+            <div id="customOutfitDiv" class="form-group hidden">
+                <label for="customOutfit">Specify Other Outfit:</label>
+                <input type="text" id="customOutfit" name="customOutfit" placeholder="Enter outfit name">
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="submit-btn">Register</button>
+            </div>
+        </form>
+
+        <div id="confirmationMessage" class="hidden">
+            <h2>Registration Successful!</h2>
+            <p>Thank you for registering for Traditional Day. We look forward to seeing your attire!</p>
+        </div>
+    </div>
+
+    <script>
+        // Show custom outfit input when "Other" is selected
+        document.getElementById("outfit").addEventListener("change", function () {
+            const customOutfitDiv = document.getElementById("customOutfitDiv");
+            if (this.value === "other") {
+                customOutfitDiv.classList.remove("hidden");
+            } else {
+                customOutfitDiv.classList.add("hidden");
+            }
+        });
+
+        // Handle form submission
+        document.getElementById("traditionalDayForm").addEventListener("submit", function (event) {
+            const outfit = document.getElementById("outfit").value;
+            const customOutfit = document.getElementById("customOutfit").value;
+
+            // Prevent submission if "Other" is selected but no custom outfit is specified
+            if (outfit === "other" && (!customOutfit || customOutfit.trim() === "")) {
+                event.preventDefault();
+                alert("Please specify the outfit in the 'Other' field.");
+                return;
+            }
+
+            // Show confirmation message
+            event.preventDefault();
+            document.getElementById("confirmationMessage").classList.remove("hidden");
+        });
+    </script>
+</body>
+</html>
